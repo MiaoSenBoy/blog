@@ -1,0 +1,85 @@
+{% extends "base.html"%}
+{%load filters%}
+
+{% block body %}
+    <script>
+    </script>
+    <style xmlns="http://www.w3.org/1999/html">
+        #del_btn{
+            border-radius: 20px;
+        }
+
+        #active_all{
+            border-radius: 20px;
+        }
+        #active{
+            border-radius: 20px;
+            border-bottom-color: #5cb85c;
+            border-top-color: #2aabd2;
+        }
+    </style>
+    <!-- Page Header -->
+    <header class="intro-header" style="background-image: url('/static/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    <div class="site-heading">
+                        <h1>MiaoSen-Blog</h1>
+                        <span class="subheading">Welcome to my blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                {% for blog in list_all %}
+                <div class="post-preview">
+                    <a href="/blog_detailed_{{ blog.id }}/">
+
+                        <h2 class="post-title">
+                            {{ blog.blog_title }}
+                        </h2>
+                        <h3 class="post-subtitle">
+{#                            {{ blog.blog_text }}#}
+                        </h3>
+
+                    </a>
+                    <form method="post" action="/blog_validation{{ blog.id }}/">
+                        <input type="hidden" name="id" value="{{ blog.id }}">
+                        <p class="post-meta">发布者 <a href="/contact/">MiaoSen/作者</a> {{ blog.blog_date }}&nbsp;&nbsp;<input type="submit" id="del_btn" value="删除"></p>
+                    </form>
+                </div>
+                <hr>
+                {% endfor %}
+                <!-- Pager -->
+                <div class="clearfix">
+                    {% if list_all.has_next %}
+                        <a class="btn btn-secondary float-right" id="next_page active_all" href="/index_{{ page|add:1 }}/">下一页></a>
+                    {% else %}
+                        <a class="btn btn-secondary float-right" id="next_page active_all" href="###">尾页 </a>
+                    {% endif %}
+                    {% if list_all.has_previous %}
+                        <a class="btn btn-secondary float-right" id="next_page active_all" href="/index_{{ page|add:-1 }}/"><上一页 </a>
+                    {% else %}
+                        <a class="btn btn-secondary float-right" id="next_page active_all" href="###">首页 </a>
+                    {% endif %}
+                </div>
+                <hr>
+                {% for index in page_list %}
+                    {% if list_all.number == index %}
+                        <a class="btn btn-secondary" id="active" href="/index_{{ index }}/">{{ index }}</a>
+                    {% else %}
+                        <a class="btn btn-secondary" id="active_all" style="font-size: 22px" href="/index_{{ index }}/">{{ index }}</a>&nbsp;&nbsp;
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <hr>
+{% endblock body %}
+

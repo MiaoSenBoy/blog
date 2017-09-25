@@ -1,0 +1,106 @@
+{% extends "base.html"%}
+
+{% block body %}
+    <style>
+        .text_bianji {
+            width: 80%;
+            height: 50%;
+            margin: 0 auto;
+        }
+
+        #btn{
+            width: 20%;
+            height: 10%;
+            float: right;
+            margin-top: -67px;
+            border: solid #e6e6e6 2px;
+        }
+
+        #passwd_ipt{
+            width: 25%;
+            height: 10%;
+            float: right;
+            margin-top: -67px;
+            margin-right: 160px;
+        }
+
+        #file_btn{
+            font-size: 16px;
+            width: 27%;
+            height: 10%;
+
+        }
+    </style>
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script>
+        //判断输入格式是否正确
+        $(function () {
+            //判断输入格式是否正确
+            $('#btn').click(function () {
+                var blog_title = $('#blog_title_ipt').val();
+                var blog_text = $('#blog_text').val();
+                var blog_pswd = $('#passwd_ipt').val();
+
+                if(blog_title=='' && blog_text==''){
+                    alert('输入不能为空!');
+                    return false
+                }
+                if(blog_title==''){
+                    alert('标题不能为空!');
+                    return false
+                }
+                if(blog_text==''){
+                    alert('内容不能为空!');
+                    return false
+                }
+                if(blog_pswd==''){
+                    alert('请输入密码!');
+                    return false
+                }
+                if(blog_pswd==492774533){
+                    return true
+                }else {
+                    alert('密码错误!');
+                    return false
+                }
+                alert('发布成功!')
+
+            });
+            $('[data-toggle="popover"]').popover()
+
+        });
+
+    </script>
+     <!-- Page Header -->
+    <header class="intro-header" style="background-image: url('/static/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    <div class="site-heading">
+                        <h1>MiaoSen Blog</h1>
+                        <span class="subheading">来写点什么吧..</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="text_bianji">
+        <form method="post" action="/get_blog/" enctype="multipart/form-data">
+            {{uf.as_p}}
+            <p><input name="blog_biaoti" class="form-control" id="blog_title_ipt" placeholder="给你的文章取个好听的名字吧!" type="text"></p>
+{#            <input type="hidden" class="hid_title" value="">#}
+{#            <div class="hid_title"></div>#}
+
+            <p><textarea name="blog_text" class="form-control" id="blog_text" placeholder="想你所想,写你所写!" rows="10" cols="82"></textarea></p>
+{#            <input type="hidden">#}
+            <input type="file" name="file_img" id="file_btn">
+            <input type="password" id="passwd_ipt" class="form-control" placeholder="请输入密码:" data-placement="bottom" data-toggle="popover" data-content="请输入主人密码!">
+            <input type="submit" name="blog_fabu" value="发布" id="btn" data-toggle="popover" data-content="点我发射!">
+{#            弹出框内容#}
+{#            <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">点我弹出/隐藏弹出框</button>#}
+        </form>
+        <br>
+        <hr>
+    </div>
+
+{% endblock body %}

@@ -1,0 +1,56 @@
+{% extends "base.html"%}
+
+{% block body %}
+    <style>
+        #btn{
+            width: 20%;
+            height: 10%;
+            margin: 0 auto;
+        }
+
+    </style>
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+
+            $('btn').click(function () {
+
+                var yzm_text = $('#yzm_text').val();
+
+                if(yzm_text==''){
+                    alert('输入不能为空!');
+                    return false
+                }
+                if(yzm_text=='weige521'){
+                    return true
+                }else {
+                    alert('密码输入有误,请联系主人!');
+                    return false
+                }
+
+            })
+
+        })
+    </script>
+
+        <header class="intro-header" style="background-image: url('/static/img/contact-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    <div class="page-heading">
+                        <h3>警告: 删除验证操作</h3>
+                        <hr class="small">
+                        <span class="subheading">Have questions? I have answers (maybe).</span>
+                        <hr>
+                        <form action="/delete_validation{{ pid }}/" method="post">
+                            <input type="password" class="form-control" id="yzm_text" name="pswd_del" placeholder="请输入删除博客验证密码:">
+                            <hr>
+                            <input type="submit" class="form-control" id="btn" value="确定">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock body %}
